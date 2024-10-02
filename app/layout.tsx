@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-// import { getServerSession } from "next-auth";
-// import { SessionProvider } from "next-auth/react";
-import NavMenu from "./components/NavMenu";
 import { Providers } from "./components/SessionProvider";
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -29,20 +26,14 @@ export default async function RootLayout({
         children: React.ReactNode;
     }>
 ) {
-    // const session = await getServerSession()
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                {/* <SessionProvider session={session}> */}
                 <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
                     <Providers>
-
-                    {/* <NavMenu/> */}
                         {children}
                     </Providers>
                 </ThemeProvider>
-
-                {/* </SessionProvider> */}
             </body>
         </html>
     );

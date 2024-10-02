@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import Header from "./Header";
-import Display from "./Display";
+import Header from "../Header";
 
 export default async function Dashboard() {
     const session = await getServerSession()
@@ -13,9 +12,7 @@ export default async function Dashboard() {
         <div className="relative flex min-h-screen flex-col bg-background">
             <Header/>
 
-            <div>
-                <Display/>
-            </div>
+
 
         </div>
     )
