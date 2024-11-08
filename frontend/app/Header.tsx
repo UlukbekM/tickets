@@ -51,13 +51,13 @@ export default  function Header() {
                     <Input placeholder="Search..." className="md:w-[100px] lg:w-[300px]" value={userInput} onChange={(e) => setUserInput(e.target.value)}/>
                     <Button disabled={userInput.length < 2} className=""><Search/></Button>
                 </form>
-                <div className="ml-4 flex items-center">
+                {/* <div className="ml-4 flex items-center">
                     {session ? 
                         <Button onClick={()=>signOut()}>Log Out</Button>
                         :
                         <Button onClick={()=>signIn()}>Log In</Button>
                     }
-                </div>
+                </div> */}
             </div>
         </div>
     )

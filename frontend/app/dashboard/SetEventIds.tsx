@@ -10,10 +10,11 @@ interface IdProps {
 
 export default function SetEventIds({ ids }: IdProps) {
     const dispatch = useAppDispatch();
-    // const currentIds = useAppSelector((state) => state.ids.idArray);
+    const currentIds = useAppSelector((state) => state.ids.idArray);
 
     useEffect(() => {
-        if (ids && ids.length > 0) {
+        //  && ids.length > 0
+        if (ids) {
             dispatch(setIds(ids));
         }
     }, [ids, dispatch]);
@@ -24,9 +25,9 @@ export default function SetEventIds({ ids }: IdProps) {
 
     return (
         <div>
-            {/* {currentIds.map((id) => (
+            {currentIds.map((id) => (
                 <p key={id}>{id}</p>
-            ))} */}
+            ))}
         </div>
     );
 }

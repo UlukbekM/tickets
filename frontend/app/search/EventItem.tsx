@@ -22,8 +22,8 @@ export default function EventItem({event, email, artist, artistProfile}:EventIte
     // const [added, setAdded] = useState(false);
     const [hovered, setHovered] = useState(false);
 
-    const addId = () => setAdded(true);
-    const removeId = () => setAdded(false);
+    // const addId = () => setAdded(true);
+    // const removeId = () => setAdded(false);
 
     useEffect(()=>{
         if(currentIds.length>0){
@@ -71,43 +71,45 @@ export default function EventItem({event, email, artist, artistProfile}:EventIte
         }
     };
 
-    // async function addId() {
-    //     const eventId = event.id;
+    async function addId() {
+        const eventId = event.id;
 
-    //     const response = await fetch("/api/addId", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             email: email,
-    //             id: eventId,
-    //             artist: event._embedded.attractions.map((item) => item.name).join(', '),
-    //             date: event.dates.start.dateTime,
-    //             city: event._embedded.venues[0].city.name,
-    //             country: event._embedded.venues[0].country.name === "United States Of America" ? 
-    //                     event._embedded.venues[0].state.stateCode 
-    //                     : event._embedded.venues[0].country.countryCode,
-    //             venue: event._embedded.venues[0].name,
-    //             artistImage: artistProfile,
-    //             time: event.dates.start.localTime,
-    //             url: event.url
-    //         }),
-    //     });
+        const response = await fetch("/api/addId", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                id: eventId,
+                artist: event._embedded.attractions.map((item) => item.name).join(', '),
+                date: event.dates.start.dateTime,
+                city: event._embedded.venues[0].city.name,
+                country: event._embedded.venues[0].country.name === "United States Of America" ? 
+                        event._embedded.venues[0].state.stateCode 
+                        : event._embedded.venues[0].country.countryCode,
+                venue: event._embedded.venues[0].name,
+                artistImage: artistProfile,
+                time: event.dates.start.localTime,
+                url: event.url
+            }),
+        });
 
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         console.log("ID added successfully:", data);
-    //         // setAdded(true)
-    //         // dispatch(addId(event.id))
-    //     } else {
-    //         console.error("Failed to add ID:", response.statusText);
-    //     }
-    // }
+        if (response.ok) {
+            const data = await response.json();
+            console.log("ID added successfully:", data);
+            setAdded(true)
+            let id_list = data?.backendResponse?.events_list.map((event: { id: string }) => event.id);
+            dispatch(setIds(id_list));
+        } else {
+            console.error("Failed to add ID:", response.statusText);
+        }
+    }
 
-    // async function removeId(){
-    //     console.log('want to remove this' + event.id)
-    // }
+    async function removeId(){
+        console.log('want to remove this' + event.id)
+        setAdded(false);
+    }
 
     return(
         <>

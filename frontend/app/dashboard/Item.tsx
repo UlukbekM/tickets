@@ -26,6 +26,7 @@ export default function Item({ data, removeEvent }: ItemProps) {
         let result = await removeEvent(data.id);
         if (result) {
             setIsVisible(false);
+            dispatch(removeId(data.id))
         }
     }
 

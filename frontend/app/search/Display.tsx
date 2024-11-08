@@ -2,18 +2,22 @@
 import { useEffect, useState } from "react";
 import { apiReturn, Event, OnSaleItem } from "./interfaces";
 import EventItem from "./EventItem";
-import Image from 'next/image'
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button";
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addId, removeId, setIds } from '../store/store';
 
 
 interface SearchProps {
     search:string | null,
     email:string | null | undefined
+    ids: string[] | undefined
 }
 
-export default function Display({search,email}:SearchProps) {
-    // const [offSaleEvents, setOffSaleEvents] = useState<Event[]>([])
+export default function Display({search,email, ids}:SearchProps) {
+    const dispatch = useAppDispatch();
+    const currentIds = useAppSelector((state) => state.ids.idArray);
+
     const [onSaleEvents, setOnSaleEvents] = useState<Event[]>([])
     const [artist, setArtist] = useState<string | null>(search)
     const [found,setFound] = useState<number>(0)
@@ -28,7 +32,15 @@ export default function Display({search,email}:SearchProps) {
             setArtist(search)
             searchEvents(search)
         }
+
     },[])
+
+    useEffect(() => {
+        //  && ids.length > 0
+        if (ids) {
+            dispatch(setIds(ids));
+        }
+    }, [ids, dispatch]);
 
     useEffect(()=>{
         if(search !== artist && search) {
@@ -111,7 +123,8 @@ export default function Display({search,email}:SearchProps) {
 
             const onsale = temp.filter((event: Event) => event.dates.status.code === "onsale")
 
-            setDisplayName(temp[0]._embedded.attractions[0].name)
+            setDisplayName(onsale[0]._embedded.attractions[0].name)
+            // console.log(onsale)
             setFound(1)
 
             const retinaPortraitUrl = findRetinaPortrait(onsale,0);
