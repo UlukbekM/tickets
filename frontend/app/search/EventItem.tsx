@@ -157,9 +157,9 @@ export default function EventItem({event, email, artist, artistProfile}:EventIte
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}>
                     {added ? (
-                        hovered ? <X /> : <Check /> // Shows 'X' on hover, 'Check' otherwise
+                        hovered ? <X /> : <Check />
                     ) : (
-                        hovered ? <Check /> : <Plus /> // Shows 'Check' on hover, 'Plus' otherwise
+                        hovered ? <Check /> : <Plus />
                     )}
                 </Button>
             {/* {added ? 

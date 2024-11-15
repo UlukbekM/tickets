@@ -7,4 +7,5 @@ export interface eventProps {
     artist: string,
     artistImage: string,
     time:string,
+    url: string
 }

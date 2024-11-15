@@ -1,4 +1,4 @@
-"use client"; // Ensures that this component is rendered on the client side
+"use client";
 
 import { Provider } from 'react-redux';
 import store from './store';
